@@ -1,4 +1,11 @@
 {
-  "pair": "Footfall-Returns",
-  "correlation": 0.41
+  "correlations": {
+    "Promo_Spend-Footfall": 0.08,
+    "Promo_Spend-Returns": -0.12,
+    "Footfall-Returns": 0.41
+  },
+  "strongest_pair": {
+    "pair": "Footfall-Returns",
+    "correlation": 0.41
+  }
 }
