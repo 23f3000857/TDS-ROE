@@ -1,0 +1,36 @@
+name: Matrix Build with Artifacts
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: [16, 18, 20]  # 3 variants
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: matrix-c912048
+        run: echo "Building for Node ${{ matrix.node }}"
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+
+      - name: Generate artifact file
+        run: |
+          mkdir -p dist
+          echo "Build for Node ${{ matrix.node }}" > dist/output-${{ matrix.node }}.txt
+          echo "Date: $(date)" >> dist/output-${{ matrix.node }}.txt
+          echo "Repository: $GITHUB_REPOSITORY" >> dist/output-${{ matrix.node }}.txt
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-c912048-node${{ matrix.node }}
+          path: dist/output-${{ matrix.node }}.txt
